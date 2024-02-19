@@ -10,7 +10,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class JUnit implements ReportInterface
 {
 
-    private DOMDocument $document;
+    /**
+     * @var DOMDocument
+     */
+    private $document;
 
     public function __construct()
     {

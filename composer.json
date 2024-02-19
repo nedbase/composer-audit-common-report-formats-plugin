@@ -22,6 +22,8 @@
         "class": "Nedbase\\Composer\\JUnitAuditPlugin"
     },
     "require": {
+        "php": "^7.2.5 || ^8.0",
+        "ext-json": "*",
         "ext-dom": "*",
         "composer-plugin-api": "^2.4"
     }
