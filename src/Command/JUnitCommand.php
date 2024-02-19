@@ -17,4 +17,9 @@ class JUnitCommand extends ReportCommand
     {
         return new JUnit();
     }
+
+    public function getDescription(): string
+    {
+        return parent::getDescription().' and outputs the report in JUnit format';
+    }
 }
