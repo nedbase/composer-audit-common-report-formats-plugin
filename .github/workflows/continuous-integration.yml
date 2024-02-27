@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Continuous Integration
 
 on:
   push:
@@ -49,6 +49,9 @@ jobs:
 
       - name: "Configure working copy as a global Composer repository"
         run: "composer global config repositories.local path $PWD"
+
+      - name: "Set minimum stability"
+        run: "composer global config minimum-stability alpha"
 
       - name: "Allow the plugin"
         run: "composer global config --no-plugins allow-plugins.nedbase/composer-audit-common-report-formats-plugin true"
