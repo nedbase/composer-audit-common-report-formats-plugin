@@ -41,6 +41,9 @@ jobs:
       - name: "Composer install"
         run: "composer install"
 
+      - name: "Validate composer.json"
+        run: "composer validate --strict"
+
       - name: "Run unit tests"
         run: "vendor/bin/phpunit"
 
