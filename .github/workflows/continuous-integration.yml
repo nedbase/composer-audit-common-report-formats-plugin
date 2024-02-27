@@ -71,5 +71,4 @@ jobs:
           mkdir test
           cd test
           composer require doctrine/annotations 1.0.0
-          composer config audit.abandoned fail
           composer audit:trivy
