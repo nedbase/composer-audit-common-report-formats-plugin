@@ -7,23 +7,42 @@ on:
 permissions:
   contents: read
 
+env:
+  COMPOSER_FLAGS: "--ansi --no-interaction --no-progress --prefer-dist"
+  COMPOSER_UPDATE_FLAGS: ""
+
 jobs:
 
   tests:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        php-version:
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+        composer-version:
+          - "2.4"
+          - "2.5"
+          - "2.6"
+          - "2.7"
+
     steps:
       - uses: actions/checkout@v4
-
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
           extensions: "intl, zip, json, dom"
           ini-values: "memory_limit=-1, phar.readonly=0, error_reporting=E_ALL, display_errors=On"
-          php-version: "7.2"
-          tools: composer:2.4
+          php-version: "${{ matrix.php-version }}"
+          tools: "composer:${{ matrix.composer-version }}"
 
       - name: "Composer test"
         run: "composer -V"
