@@ -51,7 +51,7 @@ jobs:
         run: "composer global config repositories.local path $PWD"
 
       - name: "Set minimum stability"
-        run: "composer global config minimum-stability alpha"
+        run: "composer global config minimum-stability dev"
 
       - name: "Allow the plugin"
         run: "composer global config --no-plugins allow-plugins.nedbase/composer-audit-common-report-formats-plugin true"
