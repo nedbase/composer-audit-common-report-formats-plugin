@@ -1,7 +1,6 @@
 {
     "name": "nedbase/composer-audit-common-report-formats-plugin",
     "type": "composer-plugin",
-    "version": "1.0.0",
     "keywords": ["composer", "audit", "junit", "trivy", "reports", "ci"],
     "description": "Common report formats for the composer audit command, usable for CI processes",
     "license": "MIT",
@@ -33,6 +32,6 @@
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
         "ext-dom": "*",
-        "composer-plugin-api": "^2.4"
+        "composer-plugin-api": "^2.3"
     }
 }
