@@ -36,7 +36,7 @@ class Trivy implements ReportInterface
                         'PkgName' => $packageName,
                         'InstalledVersion' => $installedVersions[$packageName] ?? 'Unknown',
                         'Title' => $advisory['title'],
-                        'Severity' => strtoupper($advisory['severity']),
+                        'Severity' => strtoupper($advisory['severity'] ?? 'unknown'),
                         'References' => [$advisory['link']]
                     ];
                 }

@@ -1,0 +1,47 @@
+{
+  "advisories": {
+    "vendor1/package1": [
+      {
+        "title": "CVE-2021-99999: Foobar",
+        "cve": "CVE-2021-99999",
+        "link": "https://example.com/cve-2021-99999",
+        "reportedAt": "2021-00-22T10:50:00+02:00",
+        "sources": [
+          {
+            "name": "GitHub",
+            "remoteId": "GHSA-abcd-1234-efgh"
+          },
+          {
+            "name": "FriendsOfPHP/security-advisories",
+            "remoteId": "vendor1/package1/CVE-2021-99999.yaml"
+          }
+        ],
+        "advisoryId": "PKSA-abcd-1234-efgh",
+        "packageName": "vendor1/package1",
+        "affectedVersions": ">=2.0.0,<2.1.0|>=2.1.0,<2.2.0|>=2.2.0,<2.3.0|>=2.3.0,<2.4.0|>=2.4.0,<2.5.0|>=2.5.0,<2.6.0|>=2.6.0,<2.7.0|>=2.7.0,<2.8.0|>=2.8.0,<3.0.0|>=3.0.0,<3.1.0|>=3.1.0,<3.2.0|>=3.2.0,<3.3.0|>=3.3.0,<3.4.0|>=3.4.0,<4.0.0|>=4.0.0,<4.1.0|>=4.1.0,<4.2.0|>=4.2.0,<4.3.0|>=4.3.0,<4.4.0|>=4.4.0,<4.4.50|>=5.0.0,<5.1.0|>=5.1.0,<5.2.0|>=5.2.0,<5.3.0|>=5.3.0,<5.4.0|>=5.4.0,<5.4.20|>=6.0.0,<6.0.20|>=6.1.0,<6.1.12|>=6.2.0,<6.2.6"
+      },
+      {
+        "title": "CVE-2022-99999: Foo baz",
+        "cve": "CVE-2022-99999",
+        "link": "https://symfony.com/cve-2022-99999",
+        "reportedAt": "2022-06-01T20:00:00+02:00",
+        "sources": [
+          {
+            "name": "GitHub",
+            "remoteId": "GHSA-ijkl-5678-mnop"
+          },
+          {
+            "name": "FriendsOfPHP/security-advisories",
+            "remoteId": "vendor1/package1/CVE-2022-99999.yaml"
+          }
+        ],
+        "advisoryId": "PKSA-ijkl-5678-mnop",
+        "packageName": "vendor1/package1",
+        "affectedVersions": ">=5.2.0,<5.3.0|>=5.3.0,<5.3.12"
+      }
+    ]
+  },
+  "abandoned": {
+    "vendor2/package1": "vendor3/package1"
+  }
+}

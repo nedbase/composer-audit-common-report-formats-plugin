@@ -12,15 +12,22 @@
         }
     ],
     "require-dev": {
-        "composer/composer": "^2.4"
+        "composer/composer": "^2.4",
+        "phpunit/phpunit-dom-assertions": "^2.6",
+        "phpunit/phpunit": "^8.5"
     },
     "autoload": {
         "psr-4": {
             "Nedbase\\Composer\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Nedbase\\Test\\Composer\\": "tests"
+        }
+    },
     "extra": {
-        "class": "Nedbase\\Composer\\JUnitAuditPlugin"
+        "class": "Nedbase\\Composer\\CommonReportFormatsAuditPlugin"
     },
     "require": {
         "php": "^7.2.5 || ^8.0",
