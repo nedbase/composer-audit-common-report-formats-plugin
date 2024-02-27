@@ -47,5 +47,5 @@ jobs:
       - name: "Require the nedbase/composer-audit-common-report-formats-plugin"
         run: "composer global require nedbase/composer-audit-common-report-formats-plugin"
 
-      - name: "Test"
-        run: "composer"
+      - name: "Create a test project with containing a vulnerable package"
+        run: "mkdir test && cd test && composer require doctrine/annotations 1.0.0 && composer audit:trivy"
