@@ -38,6 +38,12 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           tools: "composer:${{ matrix.composer-version }}"
 
+      - name: "Composer install"
+        run: "composer install"
+
+      - name: "Run unit tests"
+        run: "vendor/bin/phpunit"
+
       - name: "Configure working copy as a global Composer repository"
         run: "composer global config repositories.local path $PWD"
 
