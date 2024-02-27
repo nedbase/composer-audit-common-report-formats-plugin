@@ -34,6 +34,11 @@ class JUnit implements ReportInterface
         $output->writeln($this->document->saveXML());
     }
 
+    /**
+     * @param array<string, array<array{cve: string, title: string, link: string, severity?: string, affectedVersions: string, reportedAt: string}>> $advisories
+     * @return \DOMNode|null
+     * @throws \DOMException
+     */
     private function advisories(array $advisories): ?\DOMNode
     {
         if (0 === count($advisories)) {
@@ -58,6 +63,11 @@ class JUnit implements ReportInterface
         return $report;
     }
 
+    /**
+     * @param array<string, string|null> $packages
+     * @return \DOMNode|null
+     * @throws \DOMException
+     */
     private function abandoned(array $packages): ?\DOMNode
     {
         if (0 === count($packages)) {
@@ -84,6 +94,10 @@ class JUnit implements ReportInterface
         return $report;
     }
 
+    /**
+     * @param array{cve: string, title: string, link: string, severity?: string, affectedVersions: string, reportedAt: string} $advisory
+     * @return string
+     */
     private function generateAdvisoryDescription(array $advisory): string
     {
         return join(PHP_EOL, [

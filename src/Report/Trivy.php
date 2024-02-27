@@ -27,7 +27,7 @@ class Trivy implements ReportInterface
 
         $result = [];
 
-        if (isset($source['advisories']) && is_array($source['advisories'])) {
+        if (isset($source['advisories'])) {
             foreach ($source['advisories'] as $packageName => $advisories) {
                 foreach ($advisories as $advisory) {
                     $result[] = [
@@ -42,7 +42,7 @@ class Trivy implements ReportInterface
             }
         }
 
-        if (isset($source['abandoned']) && is_array($source['abandoned'])) {
+        if (isset($source['abandoned'])) {
             foreach ($source['abandoned'] as $abandoned => $replacement) {
                 $result[] = [
                     'VulnerabilityID' => sprintf('abandoned-package-%s', preg_replace('/[^a-z0-9\-]+/', '-', $abandoned)),

@@ -13,7 +13,8 @@
     "require-dev": {
         "composer/composer": "^2.4",
         "phpunit/phpunit-dom-assertions": "^2.6",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^8.5",
+        "vimeo/psalm": "^4.30"
     },
     "autoload": {
         "psr-4": {

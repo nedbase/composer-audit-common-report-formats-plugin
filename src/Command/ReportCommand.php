@@ -14,9 +14,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class ReportCommand extends AuditCommand
 {
     /**
-     * @var InputOption
+     * @var ?InputOption
      */
-    private $formatOption;
+    private $formatOption = null;
 
     /**
      * @var IOInterface|null
@@ -53,7 +53,7 @@ abstract class ReportCommand extends AuditCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $def = $this->getDefinition();
-        $def->addOption($this->formatOption);
+        $def->addOption($this->formatOption ?? new InputOption('format', 'f', InputOption::VALUE_REQUIRED, '', 'json'));
         $this->setDefinition($def);
         $input->setOption('format', $this->getBaseReportFormat());
 
@@ -65,6 +65,7 @@ abstract class ReportCommand extends AuditCommand
             $parentOutput = substr($parentOutput, $startPos);
         }
 
+        /** @var array{advisories?: array<string, array<array{cve: string, title: string, link: string, severity?: string, affectedVersions: string, reportedAt: string}>>, abandoned?: array<string, string|null>} $auditData */
         $auditData = json_decode($parentOutput, true);
         $this->bufferedIO = null;
 
