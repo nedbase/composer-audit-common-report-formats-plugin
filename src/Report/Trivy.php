@@ -7,7 +7,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Trivy implements ReportInterface
 {
-
     /**
      * @var Composer
      */
@@ -37,7 +36,7 @@ class Trivy implements ReportInterface
                         'InstalledVersion' => $installedVersions[$packageName] ?? 'Unknown',
                         'Title' => $advisory['title'],
                         'Severity' => strtoupper($advisory['severity'] ?? 'unknown'),
-                        'References' => [$advisory['link']]
+                        'References' => [$advisory['link']],
                     ];
                 }
             }
@@ -50,10 +49,10 @@ class Trivy implements ReportInterface
                     'PkgName' => $abandoned,
                     'InstalledVersion' => $installedVersions[$abandoned] ?? 'Unknown',
                     'Title' => sprintf('Package "%s" is abandoned', $abandoned),
-                    'Description' => $replacement === null
+                    'Description' => null === $replacement
                         ? 'No replacement package was suggested'
                         : sprintf('Package "%s" was suggested as a replacement.', $replacement),
-                    'Severity' => 'MEDIUM'
+                    'Severity' => 'MEDIUM',
                 ];
             }
         }

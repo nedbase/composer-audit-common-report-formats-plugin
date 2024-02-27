@@ -7,7 +7,6 @@ use Nedbase\Composer\Report\Trivy;
 
 class TrivyCommand extends ReportCommand
 {
-
     protected function getReportName(): string
     {
         return 'trivy';

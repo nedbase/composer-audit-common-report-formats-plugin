@@ -2,22 +2,18 @@
 
 namespace Nedbase\Composer\Report;
 
-use DOMDocument;
-use DOMNode;
-use DOMText;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class JUnit implements ReportInterface
 {
-
     /**
-     * @var DOMDocument
+     * @var \DOMDocument
      */
     private $document;
 
     public function __construct()
     {
-        $this->document = new DOMDocument();
+        $this->document = new \DOMDocument();
         $this->document->formatOutput = true;
     }
 
@@ -38,9 +34,9 @@ class JUnit implements ReportInterface
         $output->writeln($this->document->saveXML());
     }
 
-    private function advisories(array $advisories): ?DOMNode
+    private function advisories(array $advisories): ?\DOMNode
     {
-        if (count($advisories) === 0) {
+        if (0 === count($advisories)) {
             return null;
         }
 
@@ -53,7 +49,7 @@ class JUnit implements ReportInterface
             foreach ($packageAdvisories as $advisory) {
                 $failure = $this->document->createElement('failure');
                 $failure->setAttribute('message', $advisory['title']);
-                $failure->appendChild(new DOMText($this->generateAdvisoryDescription($advisory)));
+                $failure->appendChild(new \DOMText($this->generateAdvisoryDescription($advisory)));
                 $testcase->appendChild($failure);
             }
             $report->appendChild($testcase);
@@ -62,9 +58,9 @@ class JUnit implements ReportInterface
         return $report;
     }
 
-    private function abandoned(array $packages): ?DOMNode
+    private function abandoned(array $packages): ?\DOMNode
     {
-        if (count($packages) === 0) {
+        if (0 === count($packages)) {
             return null;
         }
 
@@ -77,9 +73,9 @@ class JUnit implements ReportInterface
             $failure = $this->document->createElement('failure');
             $failure->setAttribute('message', $abandoned);
             if (null === $replacement) {
-                $failure->appendChild(new DOMText('No replacement was suggested.'));
+                $failure->appendChild(new \DOMText('No replacement was suggested.'));
             } else {
-                $failure->appendChild(new DOMText(sprintf('Package is replaced by %s.', $replacement)));
+                $failure->appendChild(new \DOMText(sprintf('Package is replaced by %s.', $replacement)));
             }
             $testcase->appendChild($failure);
             $report->appendChild($testcase);

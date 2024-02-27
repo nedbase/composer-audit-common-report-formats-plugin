@@ -13,7 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class ReportCommand extends AuditCommand
 {
-
     /**
      * @var InputOption
      */
@@ -28,7 +27,7 @@ abstract class ReportCommand extends AuditCommand
 
     abstract protected function getReporter(): ReportInterface;
 
-    public function __construct(string $name = null)
+    public function __construct(?string $name = null)
     {
         parent::__construct($name);
         $this->bufferedIO = new BufferIO();
@@ -69,7 +68,7 @@ abstract class ReportCommand extends AuditCommand
         $auditData = json_decode($parentOutput, true);
         $this->bufferedIO = null;
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if (JSON_ERROR_NONE !== json_last_error()) {
             $this->getIO()->write('Failed to parse source report: '.json_last_error_msg());
 
             return Command::FAILURE;

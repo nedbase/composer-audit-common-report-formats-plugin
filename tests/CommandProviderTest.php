@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class CommandProviderTest extends TestCase
 {
-
     public function testGetCommands(): void
     {
         $provider = new CommandProvider();

@@ -13,7 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class TrivyTest extends TestCase
 {
-
     public function testGenerate(): void
     {
         $reporter = new Trivy($this->buildMockComposer());

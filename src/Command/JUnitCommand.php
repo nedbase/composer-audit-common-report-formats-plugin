@@ -7,7 +7,6 @@ use Nedbase\Composer\Report\ReportInterface;
 
 class JUnitCommand extends ReportCommand
 {
-
     protected function getReportName(): string
     {
         return 'junit';

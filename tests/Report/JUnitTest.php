@@ -9,7 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class JUnitTest extends DOMTestCase
 {
-
     public function testGenerate(): void
     {
         $reporter = new JUnit();

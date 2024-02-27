@@ -8,7 +8,6 @@ use Nedbase\Composer\Command\TrivyCommand;
 
 class CommandProvider implements CommandProviderCapability
 {
-
     public function getCommands(): array
     {
         return [
