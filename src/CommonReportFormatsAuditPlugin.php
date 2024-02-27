@@ -8,7 +8,7 @@ use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
 use Composer\Plugin\Capability\CommandProvider as CommandProviderCapability;
 
-class JUnitAuditPlugin implements PluginInterface, Capable
+class CommonReportFormatsAuditPlugin implements PluginInterface, Capable
 {
 
     public function activate(Composer $composer, IOInterface $io)

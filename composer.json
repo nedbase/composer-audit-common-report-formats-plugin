@@ -1,8 +1,9 @@
 {
-    "name": "nedbase/composer-audit-junit-plugin",
+    "name": "nedbase/composer-audit-common-report-formats-plugin",
     "type": "composer-plugin",
     "version": "1.0.0",
-    "description": "JUnit formatted output for the composer audit command",
+    "keywords": ["composer", "audit", "junit", "trivy", "reports", "ci"],
+    "description": "Common report formats for the composer audit command, usable for CI processes",
     "license": "MIT",
     "authors": [
         {
