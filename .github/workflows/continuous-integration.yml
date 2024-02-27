@@ -44,5 +44,11 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           tools: "composer:${{ matrix.composer-version }}"
 
-      - name: "Composer test"
-        run: "composer -V"
+      - name: "Configure working copy as a global Composer repository"
+        run: "composer global config repositories.local path $PWD"
+
+      - name: "Require the nedbase/composer-audit-common-report-formats-plugin"
+        run: "composer global require nedbase/composer-audit-common-report-formats-plugin"
+
+      - name: "Test"
+        run: "composer"
