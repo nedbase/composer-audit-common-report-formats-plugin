@@ -12,6 +12,11 @@ documentation on its functionality.
     * [Composer commands](#composer-commands)
     * [ReportCommand class](#reportcommand-class)
     * [ReportInterface](#reportinterface)
+    * [Registering the new command](#registering-the-new-command)
+    * [Testing](#testing)
+      * [PHPUnit](#phpunit)
+      * [PHP CS Fixer](#php-cs-fixer)
+      * [Psalm](#psalm)
 <!-- TOC -->
 
 ## Requirements
@@ -127,13 +132,13 @@ You should be all set now. A new command in the form of `audit:[my-report-format
 
 In order to keep code in good working order we've implemented several testing frameworks and coding guidelines.
 
-### PHPUnit
+#### PHPUnit
 In order for your changes to be adopted, your code should be unit tested and should pass all existing tests.
 
-### PHP CS Fixer
+#### PHP CS Fixer
 We're using PHP CS Fixer for code style. Make sure php-cs-fixer does not find any issues before submitting your changes.
 
-### Psalm
+#### Psalm
 We're using Psalm for static code analysis. Psalm is configured in its most strict mode, so make sure to check if your
 changes don't contain any errors.
 
