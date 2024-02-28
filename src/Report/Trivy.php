@@ -5,7 +5,7 @@ namespace Nedbase\Composer\Report;
 use Composer\Composer;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Trivy implements ReportInterface
+class Trivy extends JsonBasedReporter
 {
     /**
      * @var Composer
@@ -17,10 +17,12 @@ class Trivy implements ReportInterface
         $this->composer = $composer;
     }
 
-    public function generate(array $source, OutputInterface $output): void
+    public function generate(string $source, OutputInterface $output): void
     {
+        $source = $this->parseSource($source);
         $packages = $this->composer->getRepositoryManager()->getLocalRepository()->getPackages();
         $installedVersions = [];
+
         foreach ($packages as $package) {
             $installedVersions[$package->getName()] = $package->getPrettyVersion();
         }

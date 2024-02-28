@@ -4,7 +4,7 @@ namespace Nedbase\Composer\Report;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
-class JUnit implements ReportInterface
+class JUnit extends JsonBasedReporter
 {
     /**
      * @var \DOMDocument
@@ -17,8 +17,9 @@ class JUnit implements ReportInterface
         $this->document->formatOutput = true;
     }
 
-    public function generate(array $source, OutputInterface $output): void
+    public function generate(string $source, OutputInterface $output): void
     {
+        $source = $this->parseSource($source);
         $suites = $this->document->appendChild($this->document->createElement('testsuites'));
 
         $advisories = $this->advisories($source['advisories'] ?? []);
@@ -36,7 +37,7 @@ class JUnit implements ReportInterface
 
     /**
      * @param array<string, array<array{cve: string, title: string, link: string, severity?: string, affectedVersions: string, reportedAt: string}>> $advisories
-     * @return \DOMNode|null
+     *
      * @throws \DOMException
      */
     private function advisories(array $advisories): ?\DOMNode
@@ -65,7 +66,7 @@ class JUnit implements ReportInterface
 
     /**
      * @param array<string, string|null> $packages
-     * @return \DOMNode|null
+     *
      * @throws \DOMException
      */
     private function abandoned(array $packages): ?\DOMNode
@@ -96,7 +97,6 @@ class JUnit implements ReportInterface
 
     /**
      * @param array{cve: string, title: string, link: string, severity?: string, affectedVersions: string, reportedAt: string} $advisory
-     * @return string
      */
     private function generateAdvisoryDescription(array $advisory): string
     {

@@ -5,10 +5,11 @@ namespace Nedbase\Composer\Command;
 use Composer\Command\AuditCommand;
 use Composer\IO\BufferIO;
 use Composer\IO\IOInterface;
+use Nedbase\Composer\Exception\ParseException;
 use Nedbase\Composer\Report\ReportInterface;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class ReportCommand extends AuditCommand
@@ -16,7 +17,7 @@ abstract class ReportCommand extends AuditCommand
     /**
      * @var ?InputOption
      */
-    private $formatOption = null;
+    private $formatOption;
 
     /**
      * @var IOInterface|null
@@ -53,31 +54,28 @@ abstract class ReportCommand extends AuditCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $def = $this->getDefinition();
-        $def->addOption($this->formatOption ?? new InputOption('format', 'f', InputOption::VALUE_REQUIRED, '', 'json'));
+        $def->addOption($this->formatOption ?? new InputOption('format', 'f', InputOption::VALUE_REQUIRED, '', 'table'));
         $this->setDefinition($def);
         $input->setOption('format', $this->getBaseReportFormat());
 
         $this->bufferedIO = new BufferIO();
-        parent::execute($input, $output);
+        $exitCode = parent::execute($input, $output);
         $parentOutput = $this->bufferedIO->getOutput();
-        $startPos = strpos($parentOutput, '{'.PHP_EOL);
-        if ($startPos > 0) {
-            $parentOutput = substr($parentOutput, $startPos);
-        }
-
-        /** @var array{advisories?: array<string, array<array{cve: string, title: string, link: string, severity?: string, affectedVersions: string, reportedAt: string}>>, abandoned?: array<string, string|null>} $auditData */
-        $auditData = json_decode($parentOutput, true);
         $this->bufferedIO = null;
 
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            $this->getIO()->write('Failed to parse source report: '.json_last_error_msg());
+        try {
+            $this->getReporter()->generate($parentOutput, $output);
+        } catch (ParseException $exception) {
+            if ($output instanceof ConsoleOutputInterface) {
+                $output->getErrorOutput()->writeln(sprintf('<error>%s</error>', $exception->getMessage()));
+            } else {
+                $output->writeln(sprintf('<error>%s</error>', $exception->getMessage()));
+            }
 
-            return Command::FAILURE;
+            return 255;
         }
 
-        $this->getReporter()->generate($auditData, $output);
-
-        return Command::SUCCESS;
+        return $exitCode;
     }
 
     public function getIO()
