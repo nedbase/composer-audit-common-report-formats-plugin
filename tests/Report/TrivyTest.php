@@ -16,7 +16,7 @@ class TrivyTest extends TestCase
     public function testGenerate(): void
     {
         $reporter = new Trivy($this->buildMockComposer());
-        $source = json_decode(file_get_contents(FIXTURES_PATH.'/advisories-and-abandoned-packages.json'), true);
+        $source = file_get_contents(FIXTURES_PATH.'/advisories-and-abandoned-packages.json');
         $output = new BufferedOutput(OutputInterface::VERBOSITY_DEBUG);
 
         $reporter->generate($source, $output);

@@ -12,7 +12,7 @@ class JUnitTest extends DOMTestCase
     public function testGenerate(): void
     {
         $reporter = new JUnit();
-        $source = json_decode(file_get_contents(FIXTURES_PATH.'/advisories-and-abandoned-packages.json'), true);
+        $source = file_get_contents(FIXTURES_PATH.'/advisories-and-abandoned-packages.json');
         $output = new BufferedOutput(OutputInterface::VERBOSITY_DEBUG);
 
         $reporter->generate($source, $output);
