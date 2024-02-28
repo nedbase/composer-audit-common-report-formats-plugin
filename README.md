@@ -22,7 +22,7 @@ To add the plugin available for a specific project, you may add it as a dev depe
 composer require --dev nedbase/composer-audit-common-report-formats-plugin
 ```
 
-## Generating a formatted audit report
+## Usage
 
 To generate a JUnit formatted audit report, run the following command:
 
