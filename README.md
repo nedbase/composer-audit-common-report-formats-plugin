@@ -43,3 +43,7 @@ generate a JUnit formatted audit report of regular dependencies only (so no dev 
 ```shell
 composer audit:junit --no-dev
 ```
+
+### Technical documentation
+
+For the full documentation, including the technical documentation of the code, see the [Documentation](docs/README.md).
