@@ -82,11 +82,14 @@ jobs:
 
     code_style:
 
+        name: "Code style"
         runs-on: ubuntu-latest
+
         container:
             image: ghcr.io/php-cs-fixer/php-cs-fixer:3-php7.4
             volumes:
                 - ${{ github.workspace }}:/code
+
         steps:
             - name: "Check code style"
-              run: "check --show-progress=none --ansi --no-interaction"
+              run: "/usr/local/bin/php-cs-fixer check --show-progress=none --ansi --no-interaction"
