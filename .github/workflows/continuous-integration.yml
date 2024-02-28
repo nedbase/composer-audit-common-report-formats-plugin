@@ -82,7 +82,7 @@ jobs:
 
     code_style:
 
-        runs_on: ubuntu-latest
+        runs-on: ubuntu-latest
         container:
             image: ghcr.io/php-cs-fixer/php-cs-fixer:3-php7.4
             volumes:
