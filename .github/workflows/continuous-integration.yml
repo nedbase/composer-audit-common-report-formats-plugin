@@ -1,80 +1,124 @@
 name: Continuous Integration
 
 on:
-  push:
-  pull_request:
+    push:
+    pull_request:
 
 permissions:
-  contents: read
+    contents: read
 
 env:
-  COMPOSER_FLAGS: "--ansi --no-interaction --no-progress --prefer-dist"
-  COMPOSER_UPDATE_FLAGS: ""
+    COMPOSER_FLAGS: "--ansi --no-interaction --no-progress --prefer-dist"
+    COMPOSER_UPDATE_FLAGS: ""
 
 jobs:
 
-  tests:
+    tests:
 
-    name: "Composer ${{ matrix.composer-version }} on PHP ${{ matrix.php-version }}"
-    runs-on: ubuntu-latest
+        name: "Composer ${{ matrix.composer-version }} on PHP ${{ matrix.php-version }}"
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        php-version:
-          - "7.2"
-          - "7.3"
-          - "7.4"
-          - "8.0"
-          - "8.1"
-          - "8.2"
-          - "8.3"
-        composer-version:
-          - "2.4"
-          - "2.5"
-          - "2.6"
-          - "2.7"
+        strategy:
+            matrix:
+                php-version:
+                  - "7.2"
+                  - "7.3"
+                  - "7.4"
+                  - "8.0"
+                  - "8.1"
+                  - "8.2"
+                  - "8.3"
+                composer-version:
+                  - "2.4"
+                  - "2.5"
+                  - "2.6"
+                  - "2.7"
 
-    steps:
-      - uses: actions/checkout@v4
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
-        with:
-          coverage: "none"
-          extensions: "intl, zip, json, dom"
-          ini-values: "memory_limit=-1, phar.readonly=0, error_reporting=E_ALL, display_errors=On"
-          php-version: "${{ matrix.php-version }}"
-          tools: "composer:${{ matrix.composer-version }}"
+        steps:
 
-      - name: "Composer install"
-        run: "composer install"
+            - uses: actions/checkout@v4
+            - name: "Install PHP"
+              uses: "shivammathur/setup-php@v2"
+              with:
+                  coverage: "none"
+                  extensions: "intl, zip, json, dom"
+                  ini-values: "memory_limit=-1, phar.readonly=0, error_reporting=E_ALL, display_errors=On"
+                  php-version: "${{ matrix.php-version }}"
+                  tools: "composer:${{ matrix.composer-version }}"
 
-      - name: "Validate composer.json"
-        run: "composer validate --strict"
+            - name: "Composer install"
+              run: "composer install"
 
-      - name: "Run unit tests"
-        run: "vendor/bin/phpunit"
+            - name: "Validate composer.json"
+              run: "composer validate --strict"
 
-      - name: "Configure working copy as a global Composer repository"
-        run: "composer global config repositories.local path $PWD"
+            - name: "Run unit tests"
+              run: "vendor/bin/phpunit"
 
-      - name: "Set minimum stability"
-        run: "composer global config minimum-stability dev"
+            - name: "Configure working copy as a global Composer repository"
+              run: "composer global config repositories.local path $PWD"
 
-      - name: "Allow the plugin"
-        run: "composer global config --no-plugins allow-plugins.nedbase/composer-audit-common-report-formats-plugin true"
+            - name: "Set minimum stability"
+              run: "composer global config minimum-stability dev"
 
-      - name: "Require the nedbase/composer-audit-common-report-formats-plugin"
-        run: "composer global require nedbase/composer-audit-common-report-formats-plugin"
+            - name: "Allow the plugin"
+              run: "composer global config --no-plugins allow-plugins.nedbase/composer-audit-common-report-formats-plugin true"
 
-      - name: "Create a test project with containing a vulnerable package"
-        run: |
-          set +e
-          mkdir test
-          cd test
-          composer require doctrine/annotations 1.0.0
-          composer audit:trivy
-          exitcode=$?
-          if [ "$exitcode" -ge "1" ]; then
-            exit 0
-          fi
-          exit $exitcode
+            - name: "Require the nedbase/composer-audit-common-report-formats-plugin"
+              run: "composer global require nedbase/composer-audit-common-report-formats-plugin"
+
+            - name: "Create a test project with containing a vulnerable package"
+              run: |
+                  set +e
+                  mkdir test
+                  cd test
+                  composer require doctrine/annotations 1.0.0
+                  composer audit:trivy
+                  exitcode=$?
+                  if [ "$exitcode" -ge "1" ]; then
+                    exit 0
+                  fi
+                  exit $exitcode
+
+    code_style:
+
+        name: "Code style"
+        runs-on: ubuntu-latest
+
+        steps:
+
+            - uses: actions/checkout@v4
+            - name: "Install PHP"
+              uses: "shivammathur/setup-php@v2"
+              with:
+                  coverage: "none"
+                  extensions: "intl, zip, json, dom"
+                  ini-values: "memory_limit=-1, phar.readonly=0, error_reporting=E_ALL, display_errors=On"
+                  php-version: "7.4"
+                  tools: "php-cs-fixer:3"
+
+            - name: "Run code style checks"
+              run: "php-cs-fixer check --show-progress=none --ansi --no-interaction"
+
+    static_analysis:
+
+        name: Static analysis
+        runs-on: ubuntu-latest
+
+        steps:
+
+            - uses: actions/checkout@v4
+            - name: "Install PHP"
+              uses: "shivammathur/setup-php@v2"
+              with:
+                  coverage: "none"
+                  extensions: "intl, zip, json, dom"
+                  ini-values: "memory_limit=-1, phar.readonly=0, error_reporting=E_ALL, display_errors=On"
+                  php-version: "7.4"
+                  tools: "composer"
+
+            - name: "Install dependencies"
+              run: "composer install"
+
+            - name: "Run static analysis"
+              run: "vendor/bin/psalm"
