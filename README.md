@@ -50,6 +50,9 @@ For the full documentation, including the technical documentation of the code, s
 
 ---
 
-<img alt="Nedbase Logo - White" src="https://assets.nedbase.nl/nb-logo-black.png#gh-light-mode-only" align="right">
-<img alt="Nedbase Logo - Black" src="https://assets.nedbase.nl/nb-logo-white.png#gh-dark-mode-only" align="right">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://assets.nedbase.nl/nb-logo-white.png">
+  <img align="right" alt="Nedbase Logo - White" src="https://assets.nedbase.nl/nb-logo-black.png">
+</picture>
+
 Developed and maintained in 🇳🇱 by [Nedbase](https://www.nedbase.nl/).
