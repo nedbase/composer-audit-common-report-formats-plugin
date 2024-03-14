@@ -47,3 +47,12 @@ composer audit:junit --no-dev
 ### Technical documentation
 
 For the full documentation, including the technical documentation of the code, see the [Documentation](docs/README.md).
+
+---
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://assets.nedbase.nl/nb-logo-white.png">
+  <img align="right" alt="Nedbase Logo - White" src="https://assets.nedbase.nl/nb-logo-black.png">
+</picture>
+
+Developed and maintained in 🇳🇱 by [Nedbase](https://www.nedbase.nl/).
